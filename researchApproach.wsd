@@ -1,0 +1,8 @@
+@startuml
+:Define High-Level Requirements;
+:Evaluate Transmission Protocols and Schemes;
+:Define Low-Level Requirements;
+:Design and Implement First Prototype;
+:Design and Implement Second Prototype;
+:Conduct Power and Satellite Pass Testing;
+@enduml
