@@ -4,12 +4,14 @@
 
 start
 fork
-  :action 1;
-fork again
-    partition "GPS Acquisition Mode" {
-        :Wait for GPS fix;
-    }
+    repeat
+        :Produce new data;
+        :Add data to queue;
+        :Enter low-power mode until\nmeasurement period elapsed;
+        note left: If single-core,\nsimply idle this\nprocess instead
+    repeat while ()
 
+fork again
     repeat
         partition "Receive Mode" {
             :Calculate next "good" pass\nat least an hour from now;
@@ -18,9 +20,13 @@ fork again
         partition "Sleep Mode" {
             :Put modem to sleep until\n15 minutes before midpoint\nof next good pass;
             :Enter low-power mode until\n15 minutes before midpoint\nof next good pass;
+            note left: If single-core,\nsimply idle this\nprocess instead
         }
 
-        note left: If single-core,\nsimply idle this\nprocess instead
+        partition "GPS Acquisition Mode" {
+            :Wait for GPS fix;
+        }
+
         partition "Receive Mode" {
             if (RF background noise <= -93 dBm?) then (yes)
                 repeat
@@ -38,7 +44,6 @@ fork again
             endif
         }
         floating note: May or may not\nintermittently enter\nTransmit Mode
-
 
     repeat while ()
 
