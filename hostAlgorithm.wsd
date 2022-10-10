@@ -1,0 +1,34 @@
+@startuml
+
+
+
+start
+fork
+  :action 1;
+fork again
+  :Wait for GPS fix;
+  repeat
+    :Calculate next "good" pass;
+    :Put modem to sleep until\n15 minutes before midpoint\nof next good pass;
+    :Enter low-power mode until\n15 minutes before midpoint\nof next good pass;
+    note left: If single-core,\nsimply idle this\nprocess instead
+    if (RF background noise <= -93 dBm?) then (yes)
+        repeat
+            :Bundle data from queue;
+            :Transmit bundled data;
+        repeat while (More data in queue?) is (yes)
+    else (no)
+        :Put modem to sleep;
+    endif
+    repeat
+        if (Packets in transmit queue?) then (no)
+            break
+        else (yes)
+            
+        endif
+    repeat while (Pass is complete?) is (no)
+  repeat while ()
+
+end fork
+
+@enduml
