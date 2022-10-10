@@ -6,28 +6,41 @@ start
 fork
   :action 1;
 fork again
-  :Wait for GPS fix;
-  repeat
-    :Calculate next "good" pass;
-    :Put modem to sleep until\n15 minutes before midpoint\nof next good pass;
-    :Enter low-power mode until\n15 minutes before midpoint\nof next good pass;
-    note left: If single-core,\nsimply idle this\nprocess instead
-    if (RF background noise <= -93 dBm?) then (yes)
-        repeat
-            :Bundle data from queue;
-            :Transmit bundled data;
-        repeat while (More data in queue?) is (yes)
-    else (no)
-        :Put modem to sleep;
-    endif
+    partition "GPS Acquisition Mode" {
+        :Wait for GPS fix;
+    }
+
     repeat
-        if (Packets in transmit queue?) then (no)
-            break
-        else (yes)
-            
-        endif
-    repeat while (Pass is complete?) is (no)
-  repeat while ()
+        partition "Receive Mode" {
+            :Calculate next "good" pass\nat least an hour from now;
+        }
+        
+        partition "Sleep Mode" {
+            :Put modem to sleep until\n15 minutes before midpoint\nof next good pass;
+            :Enter low-power mode until\n15 minutes before midpoint\nof next good pass;
+        }
+
+        note left: If single-core,\nsimply idle this\nprocess instead
+        partition "Receive Mode" {
+            if (RF background noise <= -93 dBm?) then (yes)
+                repeat
+                    :Bundle data from queue;
+                    :Transmit bundled data;
+                repeat while (More data in queue?) is (yes)
+                repeat
+                    if (Packets in transmit queue?) then (no)
+                        break
+                    else (yes)
+                        
+                    endif
+                repeat while (Pass is complete?) is (no)
+            else (no)
+            endif
+        }
+        floating note: May or may not\nintermittently enter\nTransmit Mode
+
+
+    repeat while ()
 
 end fork
 
