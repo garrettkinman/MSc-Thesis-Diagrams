@@ -6,16 +6,23 @@ start
 
 if (TX successfull last pass?) then (yes)
     if (Packets still in queue?) then (yes)
-        :Wait for at least 1 hour;
-        break
+        :t<sub>min</sub> = 1 hour;
+        
     else (no)
-        :Wait for at least 1/f_pkt hours;
-        break
+        :t<sub>min</sub> = 1 / f<sub>pkt</sub> hours;
+        
     endif
 else (no)
-    :No minimum wait time;
-    break
+    :t<sub>min</sub> = 0 hours;
 endif
+:Calculate all satellite passes **a** occurring between t<sub>min</sub> and t<sub>max</sub>,
+their pass characteristics **s**, and their midpoints **t** (in hours from now);
+:Randomly select a pass a<sub>i</sub> from **a** according
+to the probabilities determined by the policy π;
+note right: The equation for π(a<sub>i</sub>|s<sub>i</sub>)\nis not given on this diagram
+
+stop
+
 
 
 @enduml
