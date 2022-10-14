@@ -1,0 +1,21 @@
+@startuml
+
+
+
+start
+
+if (TX successfull last pass?) then (yes)
+    if (Packets still in queue?) then (yes)
+        :Wait for at least 1 hour;
+        break
+    else (no)
+        :Wait for at least 1/f_pkt hours;
+        break
+    endif
+else (no)
+    :No minimum wait time;
+    break
+endif
+
+
+@enduml
