@@ -14,12 +14,13 @@ fork
 fork again
     repeat
         partition "Receive Mode" {
-            :Calculate next "good" pass\nat least an hour from now;
+            :Calculate the next pass with\nwhich to attempt transmission;
+            note left: This step itself is quite\ncomplex and deserves\nits own diagram
         }
         
         partition "Sleep Mode" {
-            :Put modem to sleep until\n15 minutes before midpoint\nof next good pass;
-            :Enter low-power mode until\n15 minutes before midpoint\nof next good pass;
+            :Put modem to sleep until\n15 minutes before midpoint\nof selected pass;
+            :Enter low-power mode until\n15 minutes before midpoint\nof selected pass;
             note left: If single-core,\nsimply idle this\nprocess instead
         }
 
