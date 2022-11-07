@@ -1,8 +1,9 @@
 @startuml
 :Define High-Level Requirements;
 :Evaluate Transmission Protocols and Schemes;
-:Define Low-Level Requirements;
+:Define Satellite IoT Requirements;
 :Design and Implement First Prototype;
 :Design and Implement Second Prototype;
-:Conduct Power and Satellite Pass Testing;
+:Design and Simulate Satellite\nPass Selection Algorithm;
+:Construct Energy Model of Satellite IoT Modem;
 @enduml
