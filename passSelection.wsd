@@ -19,7 +19,7 @@ endif
 their pass characteristics **s**, and their midpoints **t** (in hours from now);
 :Randomly select a pass a<sub>i</sub> from **a** according
 to the probabilities determined by the policy π;
-note right: The equation for the policy π\nis detailed separately in this thesis
+note right: The equation for the policy\nπ is detailed separately
 
 stop
 
